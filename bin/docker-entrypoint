@@ -6,6 +6,11 @@ if [ -z "${LD_PRELOAD+x}" ]; then
     export LD_PRELOAD
 fi
 
+if [ ! -d "public/assets" ]; then
+  echo "Compilando Assets"
+  SECRET_KEY_BASE=${SECRET_KEY_BASE:-DUMMY} ./bin/rails assets:precompile
+fi
+
 # If running the rails server then create or migrate existing database
 if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
   ./bin/rails db:prepare
