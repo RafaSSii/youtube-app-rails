@@ -1,0 +1,14 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: "Primeiro post"
+  body: "Conteúdo do primeiro post"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+
+two:
+  title: "Segundo post"
+  body: "Conteúdo do segundo post"
+  created_at: <%= Time.current %>
+  updated_at: <%= Time.current %>
+

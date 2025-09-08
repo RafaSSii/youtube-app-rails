@@ -1,0 +1,25 @@
+<% content_for :title, @blog_post.title %>
+<%= content_for :head do %>
+  <meta name="descrição" content="<%= @blog_post.meta_description %>" />
+<% end %>
+<div class="flex flex-col w-full">
+
+  <div class="flex gap-2 mb-4">
+    <%= link_to "Posts", blog_posts_path, class: "text-xl text-gray-900 hover:underline" %>
+    <%= link_to "> #{@blog_post.title}", @blog_post, class: "text-xl text-gray-900 hover:underline" %>
+  </div>
+
+  <%= image_tag(@blog_post.banner_image, class: "w-full h-64 object-cover") if @blog_post.banner_image.attached? %>
+
+  <h1 class="font-bold text-4xl"><%= @blog_post.title %></h1>
+
+  <div class="my-8 flex flex-col gap-4">
+    <div> <%= @blog_post.body %> </div>
+    <span class="underline decoration-sky-500"> Tags: <%= @blog_post.tags %> </span>
+  </div>
+  <div class="flex items-center gap-4 mt-4">
+    <%= link_to "Editar este post", edit_blog_post_path(@blog_post), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium shadow-md duration-150 hover:-translate-y-1" if current_admin %>
+    <%= link_to "Voltar para os posts", blog_posts_path, class: "w-full sm:w-auto text-center sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium shadow-md duration-150 hover:-translate-y-1" %>
+    <%= button_to "Apagar este post", @blog_post, method: :delete, form_class: "sm:inline-block sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer hover:scale-105 shadow-md duration-150 hover:-translate-y-1", data: { turbo_confirm: "Are you sure?" } if current_admin %>
+  </div>
+</div>

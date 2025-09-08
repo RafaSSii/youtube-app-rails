@@ -1,0 +1,19 @@
+<div class="w-full h-90 rounded-lg bg-gray-200 flex flex-col">
+  <div class="w-full h-64 ">
+    <% if blog_post.banner_image.attached? %>
+      <%= image_tag blog_post.banner_image, class: "h-full object-cover rounded-t-lg w-full" %>
+    <% else %>
+      <%= image_tag "sao_miguel.jpg", class: "h-full object-cover rounded-t-lg" %>
+    <% end %>
+  </div>
+
+  <div class="h-16 flex-shrink-0 w-full px-4 overflow-hidden text-ellipsis">
+    <p class="text-xl text-gray-900 overflow-hidden font-semibold">
+      <%= blog_post.title %>
+    </p>
+  </div>
+
+  <div class="w-full h-16 flex items-center px-5">
+    <%= link_to "Ler post", blog_post, class: "px-3 py-2 rounded-lg bg-gradient-to-r from-yellow-400 to-orange-400 via-amber-400 text-amber-50 hover:scale-110 shadow-md duration-150 hover:-translate-y-1" %>
+  </div> 
+</div>
