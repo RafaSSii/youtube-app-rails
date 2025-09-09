@@ -1,5 +1,3 @@
-# config/database.yml
-
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -22,9 +20,26 @@ test:
   database: <%= ENV['DB_NAME_TEST'] || 'blog_test' %>
 
 production:
-  <<: *default
-  username: <%= ENV['DATABASE_USER'] %>
-  password: <%= ENV['DATABASE_PASSWORD'] %>
-  host: <%= ENV['DATABASE_HOST'] %>
-  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
-  database: <%= ENV['DATABASE_NAME'] %>
+  primary:
+    <<: *default
+    username: <%= ENV['DATABASE_USER'] %>
+    password: <%= ENV['DATABASE_PASSWORD'] %>
+    host: <%= ENV['DATABASE_HOST'] %>
+    port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+    database: <%= ENV['DATABASE_NAME'] %>
+
+  queue:
+    <<: *default
+    username: <%= ENV['DATABASE_USER'] %>
+    password: <%= ENV['DATABASE_PASSWORD'] %>
+    host: <%= ENV['DATABASE_HOST'] %>
+    port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+    database: <%= ENV['DATABASE_NAME'] %>
+
+  cable:
+    <<: *default
+    username: <%= ENV['DATABASE_USER'] %>
+    password: <%= ENV['DATABASE_PASSWORD'] %>
+    host: <%= ENV['DATABASE_HOST'] %>
+    port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+    database: <%= ENV['DATABASE_NAME'] %>
