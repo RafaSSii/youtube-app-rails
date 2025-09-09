@@ -22,3 +22,7 @@ production:
     <<: *default
     url: <%= ENV['DATABASE_URL'] %>
     sslmode: <%= ENV['DATABASE_SSLMODE'] || 'require' %>
+
+  queue:
+    <<: *default
+    database: blog_production_queue
