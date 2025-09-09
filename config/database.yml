@@ -2,31 +2,29 @@
 
 default: &default
   adapter: postgresql
-  encod ing: unicode
-  username: <%= ENV['DB_USERNAME'] %>
-  password: <%= ENV['DB_PASSWORD'] %>
-  host: <%= ENV['DB_HOST'] || 'localhost' %>
-  port: <%= ENV['DB_PORT'] || 5432 %>
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
+  username: <%= ENV['DB_USERNAME'] || 'postgres' %>
+  password: <%= ENV['DB_PASSWORD'] || 'password' %>
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  port: <%= ENV['DB_PORT'] || 5432 %>
   database: <%= ENV['DB_NAME_DEVELOPMENT'] || 'blog_development' %>
 
 test:
   <<: *default
+  username: <%= ENV['DB_USERNAME'] || 'postgres' %>
+  password: <%= ENV['DB_PASSWORD'] || 'password' %>
+  host: <%= ENV['DB_HOST'] || 'localhost' %>
+  port: <%= ENV['DB_PORT'] || 5432 %>
   database: <%= ENV['DB_NAME_TEST'] || 'blog_test' %>
 
 production:
-  primary:
-    <<: *default
-    database: <%= ENV["DATABASE_NAME"] %>
-    username: <%= ENV["DATABASE_USER"] %>
-    password: <%= ENV["DATABASE_PASSWORD"] %>
-    host: <%= ENV["DATABASE_HOST"] %>
-    port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
-    
-
-  queue:
-    <<: *default
-    database: blog_production_queue
+  <<: *default
+  username: <%= ENV['DATABASE_USER'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
+  host: <%= ENV['DATABASE_HOST'] %>
+  port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+  database: <%= ENV['DATABASE_NAME'] %>
