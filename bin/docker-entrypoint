@@ -1,23 +1,26 @@
-#!/bin/bash -e
+#!/bin/bash
+set -e
 
-# Enable jemalloc for reduced memory usage and latency.
+# Enable jemalloc
 if [ -z "${LD_PRELOAD+x}" ]; then
     LD_PRELOAD=$(find /usr/lib -name libjemalloc.so.2 -print -quit)
     export LD_PRELOAD
 fi
 
+# Precompila assets se não existir
 if [ ! -d "public/assets" ]; then
-  echo "Compilando Assets"
+  echo "Compilando assets..."
   SECRET_KEY_BASE=${SECRET_KEY_BASE:-DUMMY} ./bin/rails assets:precompile
 fi
 
-# If running the rails server then create or migrate existing database
-if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
-  echo "Preparando DB"
+# Checa se o comando é "rails server"
+if [ "$1" = "./bin/rails" ] && [ "$2" = "server" ]; then
+  echo "Preparando DB..."
   ./bin/rails db:prepare
   ./bin/rails db:migrate
-  echo "Iniciar server"
-  ./bin/rails server
+  echo "Iniciando servidor Rails..."
+  exec ./bin/rails server -b 0.0.0.0 -p "${PORT:-3000}"
+else
+  # Qualquer outro comando
+  exec "$@"
 fi
-
-exec "${@}"
