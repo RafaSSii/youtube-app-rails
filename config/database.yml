@@ -2,7 +2,7 @@
 
 default: &default
   adapter: postgresql
-  encoding: unicode
+  encod ing: unicode
   username: <%= ENV['DB_USERNAME'] %>
   password: <%= ENV['DB_PASSWORD'] %>
   host: <%= ENV['DB_HOST'] || 'localhost' %>
@@ -20,8 +20,12 @@ test:
 production:
   primary:
     <<: *default
-    url: <%= ENV['DATABASE_URL'] %>
-    sslmode: <%= ENV['DATABASE_SSLMODE'] || 'require' %>
+    database: <%= ENV["DATABASE_NAME"] %>
+    username: <%= ENV["DATABASE_USER"] %>
+    password: <%= ENV["DATABASE_PASSWORD"] %>
+    host: <%= ENV["DATABASE_HOST"] %>
+    port: <%= ENV.fetch("DATABASE_PORT", 5432) %>
+    
 
   queue:
     <<: *default
