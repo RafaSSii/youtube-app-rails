@@ -13,8 +13,10 @@ fi
 
 # If running the rails server then create or migrate existing database
 if [ "${@: -2:1}" == "./bin/rails" ] && [ "${@: -1:1}" == "server" ]; then
+  echo "Preparando DB"
   ./bin/rails db:prepare
   ./bin/rails db:migrate
+  echo "Iniciar server"
   ./bin/rails server
 fi
 
